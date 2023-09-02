@@ -2,7 +2,7 @@ import { Alert, AppBar, Box, Button, Card, CardActions, CardContent, CardMedia, 
 import useRickAndMorty from './useRickAndMorty';
 
 function RickAndMorty() {
-  const { data, isLoading, isError, error } = useRickAndMorty();
+  const { characters, isLoading, isError, error } = useRickAndMorty();
 
   return (
     <Box component='main'>
@@ -28,7 +28,7 @@ function RickAndMorty() {
                 <Stack sx={{ width: '100%' }} spacing={2}>
                   <Alert severity="error">
                     Oops! An error has ocurred
-                    {(error as Error)?.message}
+                    {error?.message}
                   </Alert>
                 </Stack>
 
@@ -40,7 +40,7 @@ function RickAndMorty() {
                   gridTemplateColumns: 'repeat(auto-fit,minmax(200px,1fr))'
                 }}>
                   {
-                    data.map((character, index) => (
+                    characters.map((character, index) => (
                       <Card sx={{ maxWidth: 345 }} key={index}>
                         <CardMedia
                           sx={{ height: 140 }}
