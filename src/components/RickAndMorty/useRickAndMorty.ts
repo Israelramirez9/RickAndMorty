@@ -1,5 +1,6 @@
-import { useEffect, useState } from "react"
+import { useEffect, useMemo, useState } from "react"
 import { Character, getCharacters } from "../../services/rickAndMorty"
+import { createTheme } from "@mui/material";
 
 
 
@@ -8,15 +9,40 @@ function useRickAndMorty() {
     const [isLoading, setIsLoading] = useState(false);
     const [characters, setCharacters] = useState<Character[]>([])
     const [error, setError] = useState<Error>();
+    const [page, setPage] = useState(1);
+    const [count, setCount] = useState(1);
+    const [mode, setMode] = useState<'light' | 'dark'>('light');
 
+    const colorMode = useMemo(() => (
+        {
+            toggleColorMode: () => {
+                setMode((prevMode) => (prevMode === 'light' ? 'dark' : 'light'));
+            },
+        }
+    ), [])
+
+    const theme = useMemo(() =>
+        createTheme({
+            palette: {
+                mode,
+            },
+        }), [mode])
+
+
+
+    const handlePagination = (event: React.ChangeEvent<unknown>, value: number) => {
+        setPage(value);
+        console.log(value)
+    };
 
     useEffect(() => {
         (
             async () => {
                 try {
                     setIsLoading(true)
-                    const data = await getCharacters()
-                    setCharacters(data)
+                    const { info, results } = await getCharacters(page)
+                    setCount(info.pages)
+                    setCharacters(results)
                 } catch (error) {
                     console.error(error)
                     setError(error as Error)
@@ -26,9 +52,9 @@ function useRickAndMorty() {
                 }
             }
         )()
-    }, [])
+    }, [page])
 
 
-    return { characters, isLoading, isError, error }
+    return { characters, isLoading, isError, error, count, page, handlePagination, theme, colorMode }
 }
 export default useRickAndMorty

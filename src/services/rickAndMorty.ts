@@ -25,9 +25,19 @@ export type Character = {
     url: string
     created: string
 }
+export type InfoResponse = {
+    count: number
+    pages: number
+    next: string | null
+    prev: string | null
+}
+export type CharacterResponse = {
+    info: InfoResponse,
+    results: Character[]
+}
 
-export async function getCharacters(page = 1): Promise<Character[]> {
+export async function getCharacters(page = 1): Promise<CharacterResponse> {
     const response = await fetch(`${API_URL_CHARACTER}?page=${page}`)
     const body = await response.json();
-    return body.results
+    return body
 }
