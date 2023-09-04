@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from "react"
+import { useCallback, useEffect, useMemo, useState } from "react"
 import { Character, getCharacters } from "../../services/rickAndMorty"
 import { createTheme } from "@mui/material";
 
@@ -13,13 +13,10 @@ function useRickAndMorty() {
     const [count, setCount] = useState(1);
     const [mode, setMode] = useState<'light' | 'dark'>('light');
 
-    const colorMode = useMemo(() => (
-        {
-            toggleColorMode: () => {
-                setMode((prevMode) => (prevMode === 'light' ? 'dark' : 'light'));
-            },
-        }
-    ), [])
+    const toggleColorMode = useCallback(() => {
+        setMode((prevMode) => (prevMode === 'light' ? 'dark' : 'light'));
+    }, [])
+
 
     const theme = useMemo(() =>
         createTheme({
@@ -32,7 +29,7 @@ function useRickAndMorty() {
 
     const handlePagination = (event: React.ChangeEvent<unknown>, value: number) => {
         setPage(value);
-        console.log(value)
+
     };
 
     useEffect(() => {
@@ -55,6 +52,6 @@ function useRickAndMorty() {
     }, [page])
 
 
-    return { characters, isLoading, isError, error, count, page, handlePagination, theme, colorMode }
+    return { characters, isLoading, isError, error, count, page, handlePagination, theme, toggleColorMode }
 }
 export default useRickAndMorty

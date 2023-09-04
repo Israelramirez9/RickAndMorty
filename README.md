@@ -14,3 +14,8 @@ npm install
 npm run dev
 ```
 
+### Optional: testing 
+
+```bash
+```npm run test
+

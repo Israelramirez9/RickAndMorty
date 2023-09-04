@@ -8,9 +8,6 @@ import { RickAndMorty } from './components';
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
-
-
     <RickAndMorty />
-
   </React.StrictMode>,
 )
