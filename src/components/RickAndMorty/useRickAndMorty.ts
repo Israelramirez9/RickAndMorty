@@ -27,7 +27,7 @@ function useRickAndMorty() {
 
 
 
-    const handlePagination = (event: React.ChangeEvent<unknown>, value: number) => {
+    const handlePagination = (_: React.ChangeEvent<unknown>, value: number) => {
         setPage(value);
 
     };
@@ -52,6 +52,16 @@ function useRickAndMorty() {
     }, [page])
 
 
-    return { characters, isLoading, isError, error, count, page, handlePagination, theme, toggleColorMode }
+    return {
+        characters,
+        isLoading,
+        isError,
+        error,
+        count,
+        page,
+        handlePagination,
+        theme,
+        toggleColorMode
+    }
 }
 export default useRickAndMorty

@@ -1,5 +1,6 @@
-# Rick And Morty Challenge
+# [Rick And Morty Challenge](https://israelramirez9.github.io/rick-and-morty)
 
+![Rick And Morty](public/rick-and-morty.gif)
 ## How to setup
 
 ### First: install dependencies 
